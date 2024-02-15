@@ -42,6 +42,19 @@ app.post('/artists', (req, res) => {
   res.status(201)
     .send(addArtist(req.body));
 })
+
+app.get('/artists/latest', (req, res) => {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .send(getLatestArtist());
+})
+
+app.get('/artists/latest/albums', (req, res) => {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .send(getAlbumsForLatestArtist());
+})
+
 // DO NOT MODIFY
 if (require.main === module) {
   const port = 8000;
