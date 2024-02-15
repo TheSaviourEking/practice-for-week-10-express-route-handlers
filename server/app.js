@@ -27,9 +27,20 @@ const app = express();
 // Your code here
 app.use(express.json());
 
-app.use((req, res, next)=> {
+app.use((req, res, next) => {
   console.log('Body', req.body);
   next();
+})
+
+app.get('/artists', (req, res) => {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .send(getAllArtists());
+})
+
+app.post('/artists', (req, res) => {
+  res.status(201)
+    .send(addArtist(req.body));
 })
 // DO NOT MODIFY
 if (require.main === module) {
