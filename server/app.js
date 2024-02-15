@@ -19,13 +19,18 @@ const {
   addSongByAlbumId,
   editSongBySongId,
   deleteSongBySongId
-} = require('./data');
+} = require('./data.js');
 
 const express = require('express');
 const app = express();
 
 // Your code here
+app.use(express.json());
 
+app.use((req, res, next)=> {
+  console.log('Body', req.body);
+  next();
+})
 // DO NOT MODIFY
 if (require.main === module) {
   const port = 8000;
