@@ -132,6 +132,45 @@ app.get('/songs/:songId', (req, res) => {
     .send(getSongBySongId(req.params.songId));
 })
 
+app.post('/albums/:albumId/songs', (req, res) => {
+  res.status('201')
+    .set('Content-Type', 'application/json')
+    .send(addSongByAlbumId(req.params.albumId, req.body));
+})
+
+app.get('/artists/:artistId/songs', (req, res) => {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .json(getSongsByArtistId(req.params.artistId));
+})
+
+app.get('/albums/:albumId/songs', (req, res) => {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .send(getSongsByAlbumId(req.params.albumId));
+})
+
+app.put('/songs/:songId', editSongHandler);
+app.patch('/songs/:songId', editSongHandler);
+
+function editSongHandler(req, res) {
+  res.status(200)
+    .set('Content-Type', 'application/json')
+    .send(editSongBySongId(req.params.songId, req.body));
+
+}
+
+app.delete('/songs/:songId', (req, res) => {
+  const songId = req.params.songId;
+  if (getSongBySongId(songId)) {
+    deleteSongBySongId(songId);
+
+    res.status(200)
+      .set('Content-Type', 'application/json')
+      .json({ message: 'Successfully deleted' });
+  }
+})
+
 // DO NOT MODIFY
 if (require.main === module) {
   const port = 8000;
